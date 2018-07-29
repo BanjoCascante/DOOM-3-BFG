@@ -104,7 +104,8 @@ struct idNullPtr {
 
 // C99 Standard
 #ifndef nullptr
-		#define nullptr	idNullPtr()		
+    //TODO: Commented because it was causing compilation errors 
+		//#define nullptr	idNullPtr()		
 #endif
 
 #ifndef BIT

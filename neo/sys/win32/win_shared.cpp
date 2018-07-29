@@ -43,6 +43,7 @@ If you have questions concerning this license or the applicable additional terms
 #undef StrCmpI
 #include <atlbase.h>
 
+
 #include <comdef.h>
 #include <comutil.h>
 #include <Wbemidl.h>

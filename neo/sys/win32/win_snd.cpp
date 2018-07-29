@@ -29,7 +29,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../../idlib/precompiled.h"
 
 // DirectX SDK
+#if !defined(USE_WIN10)
 #include <DxErr.h>
+#endif
 
 #include <ks.h>
 #include <ksmedia.h>

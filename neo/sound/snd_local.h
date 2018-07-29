@@ -82,12 +82,22 @@ typedef enum {
 
 #define OPERATION_SET 1
 
-#include <dxsdkver.h>
 
+#if !defined(USE_WIN10)
+    #include <dxsdkver.h>
+#else
+    // TODO: dxsdkver not available in Win10, look for replacement
+    //#include <dxsdkver.h>  
+#endif
 #include <xaudio2.h>
 #include <xaudio2fx.h>
 #include <X3DAudio.h>
-#include <xma2defs.h>
+#if !defined(USE_WIN10)
+    #include <dxsdkver.h>
+#else
+    // TODO: xma2defs not available in Win10, look for replacement
+    //#include <xma2defs.h> // TODO: Not available in Win10, look for replacement
+#endif
 #include "XAudio2/XA2_SoundSample.h"
 #include "XAudio2/XA2_SoundVoice.h"
 #include "XAudio2/XA2_SoundHardware.h"

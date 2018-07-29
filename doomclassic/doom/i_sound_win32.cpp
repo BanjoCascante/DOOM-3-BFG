@@ -813,7 +813,14 @@ void I_InitMusic(void)
 		voiceFormat.wBitsPerSample = MIDI_FORMAT_BYTES * 8;
 		voiceFormat.cbSize = 0;
 
-		soundSystemLocal.hardware.GetIXAudio2()->CreateSourceVoice( &pMusicSourceVoice, (WAVEFORMATEX *)&voiceFormat, XAUDIO2_VOICE_MUSIC );
+        #if !defined(USE_WIN10)
+            soundSystemLocal.hardware.GetIXAudio2()->CreateSourceVoice( &pMusicSourceVoice, (WAVEFORMATEX *)&voiceFormat, XAUDIO2_VOICE_MUSIC );
+
+        #else
+                // TODO: xma2defs not available in Win10, look for replacement
+                //soundSystemLocal.hardware.GetIXAudio2()->CreateSourceVoice( &pMusicSourceVoice, (WAVEFORMATEX *)&voiceFormat, XAUDIO2_VOICE_MUSIC ); //TODO Not available on Win10, look for replacement
+
+        #endif
 
 		Music_initialized = true;
 	}

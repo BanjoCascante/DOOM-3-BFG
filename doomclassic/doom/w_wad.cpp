@@ -174,8 +174,6 @@ void W_AddFile ( const char *filename)
 		handle->Read( &fileinfo[0], length );
 		numlumps += header.numlumps;
     }
-
-    
 	// Fill in lumpinfo
 	if (lumpinfo == NULL) {
 		lumpinfo = (lumpinfo_t*)malloc( numlumps*sizeof(lumpinfo_t) );

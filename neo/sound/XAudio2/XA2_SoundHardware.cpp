@@ -60,21 +60,25 @@ idSoundHardware_XAudio2::idSoundHardware_XAudio2() {
 	lastResetTime = 0;
 }
 
-void listDevices_f( const idCmdArgs & args ) {
+void listDevices_f(const idCmdArgs & args) {
 
-	IXAudio2 * pXAudio2 = soundSystemLocal.hardware.GetIXAudio2();
+    IXAudio2 * pXAudio2 = soundSystemLocal.hardware.GetIXAudio2();
 
-	if ( pXAudio2 == NULL ) {
-		idLib::Warning( "No xaudio object" );
-		return;
-	}
+    if (pXAudio2 == NULL) {
+        idLib::Warning("No xaudio object");
+        return;
+    }
+#if defined(USE_WIN10)
+
+    //TODO Implement audio features for win 10
+
+#else
 
 	UINT32 deviceCount = 0;
 	if ( pXAudio2->GetDeviceCount( &deviceCount ) != S_OK || deviceCount == 0 ) {
 		idLib::Warning( "No audio devices found" );
 		return;
 	}
-
 	for ( unsigned int i = 0; i < deviceCount; i++ ) {
 		XAUDIO2_DEVICE_DETAILS deviceDetails;
 		if ( pXAudio2->GetDeviceDetails( i, &deviceDetails ) != S_OK ) {
@@ -157,6 +161,8 @@ void listDevices_f( const idCmdArgs & args ) {
 			idLib::Printf( ", and %s\n", roles[roles.Num() - 1] );
 		}
 	}
+#endif
+
 }
 
 /*
@@ -198,6 +204,9 @@ void idSoundHardware_XAudio2::Init() {
 	// Register the sound engine callback
 	pXAudio2->RegisterForCallbacks( &soundEngineCallback );
 	soundEngineCallback.hardware = this;
+#if defined(USE_WIN10)
+ //TODO Implement audio features for win 10
+#else
 
 	UINT32 deviceCount = 0;
 	if ( pXAudio2->GetDeviceCount( &deviceCount ) != S_OK || deviceCount == 0 ) {
@@ -325,6 +334,8 @@ void idSoundHardware_XAudio2::Init() {
 	for ( int i = 0; i < voices.Num(); i++ ) {
 		freeVoices[i] = &voices[i];
 	}
+#endif
+
 }
 
 /*
